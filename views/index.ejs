@@ -1,0 +1,28 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+
+    <header>
+        <% include partials/header %>
+    </header>
+
+    <div class="main-container">
+		<script type="text/javascript">
+			try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+		</script>
+ 		<% include partials/sidebar %>
+ 		<% include partials/main_content %>
+    </div>
+
+    <footer>
+        <% include partials/footer %>
+    </footer>
+    
+</body>
+</html>

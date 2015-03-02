@@ -1,0 +1,46 @@
+
+<% if (typeof message != "undefined" &&  typeof message_type != "undefined" ){ %>
+	<% if (typeof message != "" && message_type == "info"){ %>
+	  <div class="fade in alert alert-info">
+	    <button class="close" type="button" data-dismiss="alert">×</button>
+	      <ul>	
+	        <%= message %>
+	      </ul>
+	  </div>
+	<% } %>
+<% } %>
+
+<% if (typeof message != "undefined" &&  typeof message_type != "undefined"){ %>
+	<% if (typeof message != "" && message_type == "error"){ %>
+	  <div class="fade in alert alert-danger">
+	      <button class="close" type="button" data-dismiss="alert">×</button>
+	      <ul>
+	        <%= message %>
+	      </ul>
+	  </div>
+	<% } %>
+<% } %>
+
+
+<% if (typeof message != "undefined" &&  typeof message_type != "undefined"){ %>
+	<% if (typeof message != "" && message_type == "success"){ %>
+	  <div class="fade in alert alert-success">
+	      <button class="close" type="button" data-dismiss="alert">×</button>
+	      <ul>
+	        <%= message %>
+	      </ul>
+	  </div>
+  <% } %>
+<% } %>
+
+
+<% if (typeof message != "undefined" &&  typeof message_type != "undefined"){ %>
+	<% if (typeof message != "" && message_type == "warning"){ %>
+	  <div class="fade in alert alert-warning">
+	    <button class="close" type="button" data-dismiss="alert">×</button>
+	    <ul>
+	        <%= message %>
+	    </ul>
+	  </div>
+	<% } %>
+<% } %>

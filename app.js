@@ -3,7 +3,11 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session')
+
 var bodyParser = require('body-parser');
+
+var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,6 +28,8 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// app.set('views', __dirname + '/views');
+
 // app.set('view engine', 'jade');
 app.set('view engine', 'ejs');
 
@@ -32,18 +38,35 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('keyboard cat'));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  key: 'sid',
+  cookie: { maxAge: 60000  }
+}))
+
+
+app.use(flash());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/creates', creates);
 
-console.log("__dirname : " , __dirname);
+// app.get('/creates/edit/:id' , creates.edit);
+
+
 
 app.use("/style", express.static(__dirname + '/public/stylesheets/'));
 app.use("/images", express.static(__dirname + '/public/images/'));
 app.use("/js", express.static(__dirname + '/public/javascripts/'));
+
 
 
 // catch 404 and forward to error handler

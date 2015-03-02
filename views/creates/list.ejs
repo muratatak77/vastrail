@@ -1,0 +1,32 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Advertisers</th>
+      <th>Link</th>
+      <th>Skip</th>
+      <th>Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <% creates.forEach(function(c){ %>
+        <tr>
+          <td><%= c.id %></td>
+          <td><%= c.title %></td>
+          <td><%= c.type %></td>
+          <td><%= c.advertisers %></td>
+          <td><%= c.video_clickthrough_url %></td>
+          <td><%= c.skip %></td>
+          <td>
+          	Show - 
+			<a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
+          	-
+          	<a href="/creates/edit/<%= c.id %>" >Edit</a> 
+          </td>
+        </tr>
+
+     <% }); %>
+  </tbody>
+</table>

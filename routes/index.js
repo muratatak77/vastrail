@@ -3,7 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+	console.log("idnexxxxx");
+
+	res.render('index', { expressFlash: req.flash('	'), sessionFlash: res.locals.sessionFlash });
+  // res.render('index', { title: 'Express' });
 });
 
 module.exports = router;

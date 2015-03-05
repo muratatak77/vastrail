@@ -1,4 +1,66 @@
 
+<% if (typeof sessionFlash != "undefined" &&  typeof sessionFlash.message != "undefined" ){ %>
+	  <div class="fade in alert alert-<%= sessionFlash.type %>">
+	    <button class="close" type="button" data-dismiss="alert">×</button>
+	      <ul>	
+	       <%= sessionFlash.message %>
+	      </ul>
+	  </div>
+<% } %>
+
+
+<% if (typeof info != "undefined" && info.length > 0){ %>
+
+  <div class="fade in alert alert-info">
+    <button class="close" type="button" data-dismiss="alert">×</button>
+      <ul>
+        <% info.forEach(function(inf){ %>
+          <li><%= inf %></li>
+        <% }) %>
+      </ul>
+  </div>
+<% } %>
+
+<% if (typeof errors != "undefined" && errors.length > 0){ %>
+
+  <div class="fade in alert alert-danger">
+      <button class="close" type="button" data-dismiss="alert">×</button>
+      <ul>
+        <% errors.forEach(function(err,i){ %>
+          <li><%= err %></li>
+        <% }) %>
+      </ul>
+  </div>
+<% } %>
+
+
+<% if (typeof success != "undefined" && success.length > 0){ %>
+
+  <div class="fade in alert alert-success">
+      <button class="close" type="button" data-dismiss="alert">×</button>
+      <ul>
+        <% success.forEach(function(succ){ %>
+          <li><%= succ %></li>
+        <% }) %>
+      </ul>
+  </div>
+<% } %>
+
+<% if (typeof warning != "undefined" && warning.length > 0){ %>
+
+  <div class="fade in alert alert-warning">
+    <button class="close" type="button" data-dismiss="alert">×</button>
+    <ul>
+      <% warning.forEach(function(warn){ %>
+        <li><%= warn %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+
+
+<!-- 
 <% if (typeof message != "undefined" &&  typeof message_type != "undefined" ){ %>
 	<% if (typeof message != "" && message_type == "info"){ %>
 	  <div class="fade in alert alert-info">
@@ -11,7 +73,7 @@
 <% } %>
 
 <% if (typeof message != "undefined" &&  typeof message_type != "undefined"){ %>
-	<% if (typeof message != "" && message_type == "error"){ %>
+	<%if (typeof message != "" && message_type == "error"){ %>
 	  <div class="fade in alert alert-danger">
 	      <button class="close" type="button" data-dismiss="alert">×</button>
 	      <ul>
@@ -44,3 +106,4 @@
 	  </div>
 	<% } %>
 <% } %>
+ -->

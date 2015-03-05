@@ -1,5 +1,3 @@
-<!-- views/pages/index.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +5,16 @@
 </head>
 
 <body>
-    
+
     <header>
         <% include partials/header %>
     </header>
+
+    <div class="row">
+        <div class="col-md-6">
+            <% include partials/message %>
+        </div>
+    </div>
     
     <footer>
         <% include partials/footer %>

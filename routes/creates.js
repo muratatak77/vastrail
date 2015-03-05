@@ -1,18 +1,22 @@
+'use strict'
 
 var express = require('express');
 var router = express.Router();
 var utils = require('../lib/utils')
-
 var mongoose = require('mongoose');
+
+// jQuery = require('jquery');
+
 var Create = require('../models/create.js');
 
+var message_type =  "";
+var message =  "";
 var error = "";
 
 /* GET creates listing. */
 router.get('/', function(req, res, next) {
 	render_index(req, res, "", "");
 });
-
 
 /* GET users listing. */
 router.get('/show', function(req, res, next) {
@@ -22,6 +26,8 @@ router.get('/show', function(req, res, next) {
 /* GET users listing. */
 router.get('/new', function(req, res, next) {
 
+	req.flash('success', 'Successfully created create!');
+
 	res.render('creates/new', {
 		create: Create,
 		form_action_page: "/creates/create",
@@ -30,35 +36,36 @@ router.get('/new', function(req, res, next) {
 	
 });
 
-
 /* POST create new */
 router.post('/create', function(req, res, next){
+
 	console.log("POST: ");
 	console.log(req.body);
 
-	var create = new Create({
-		title: req.body.title,
-		type: req.body.type,
-		advertisers: req.body.advertisers,
-		video_clickthrough_url: req.body.video_clickthrough_url,
-		skip: req.body.skip
-	});
+	var create = Create.new(req);
+	console.log("create >> " , create);
+
+	// var create = new Create();
+	// var model = create.newCreate(req);
 
  	create.save(function (err) {
-
     	if (err) {
 		  	console.log("ERROR OCCURED : " , err);
-			res.render('creates/new', {
+
+			return res.render('creates/new', {
 				create: create,
 				form_action_page: "/creates/create",
 				form_method_type: "post",
-				errors: utils.errors(err.errors || err)
+				errors: utils.errors(err)
 			});
+    	} else {
+			req.session.sessionFlash = {
+		        type: 'success',
+		        message: 'Successfully created create!  / ID = ' + create.id  + " / Title : " + create.title
+		    }
+			res.redirect('/creates');
     	}
-
   	});
-
-	render_index(req, res, "success", "Successfully created create!" );
 
 });
 
@@ -125,7 +132,11 @@ router.post('/destroy/:id', function (req, res){
 					errors: utils.errors(err.errors || err)
 				});
 			}
-			render_index(req, res, "success", "Successfully removed article!" );
+			req.session.sessionFlash = {
+		        type: 'success',
+		        message: 'Successfully destroy create! /  ID = ' + req.params.id  + " / Title : " + create.title
+		    }
+			res.redirect('/creates');
     	});
 	});
 });
@@ -141,6 +152,7 @@ function render_index(req, res, msg_type, msg_val){
 	    if (msg_val != "" && msg_type != ""){
 			message = msg_val;
 	    }
+
 		res.render('creates/index', {
 			creates: creates,
 			message_type: msg_type,

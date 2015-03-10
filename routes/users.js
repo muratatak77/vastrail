@@ -8,6 +8,17 @@ router.get('/', function(req, res, next) {
 });
 
 
+// router.get('/login', function(req, res, next) {
+// });
+
+
+
+// router.get('/logout', function(req, res, next) {
+//   req.logout();
+//   res.redirect('/users/login');
+// });
+
+
 module.exports = router;
 
 

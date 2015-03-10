@@ -11,6 +11,10 @@ var flash = require('express-flash');
 var mongoose = require('mongoose');
 var validate = require('mongoose-validator');
 
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy;
+
+
 var jsdom = require("jsdom"); 
 var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
@@ -18,8 +22,16 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var creates = require('./routes/creates');
 
+require('./config/passport')(passport); 
+var auth = require('./config/auth');
 
-var  db = mongoose.connect('mongodb://localhost:27017/vast');
+
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url); // connect to our database
+
+// var  db = mongoose.connect('mongodb://localhost:27017/vast');
+
+
 var app = express();
 var sessionStore = new session.MemoryStore;
 
@@ -49,9 +61,20 @@ app.use(session({
     resave: 'true',
     secret: 'secret'
 }));
+
+
+// app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+
 app.use(flash());
 
+
 app.use(function(req, res, next){
+
+    res.locals.user = req.session.user;
+
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.sessionFlash = req.session.sessionFlash;
     delete req.session.sessionFlash;
@@ -61,7 +84,7 @@ app.use(function(req, res, next){
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/creates', creates);
+app.use('/creates', auth.requiresLogin ,  creates);
 
 app.use("/style", express.static(__dirname + '/public/stylesheets/'));
 app.use("/images", express.static(__dirname + '/public/images/'));

@@ -7,6 +7,9 @@
       <th>Advertisers</th>
       <th>Link</th>
       <th>Skip</th>
+      <th>Created</th>
+      <th>User</th>
+
       <th>Process</th>
     </tr>
   </thead>
@@ -19,9 +22,17 @@
           <td><%= c.advertisers %></td>
           <td><%= c.video_clickthrough_url %></td>
           <td><%= c.skip %></td>
+          <td><%= c.createdDate %></td>
           <td>
-          	Show - 
-			<a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
+            <% if (typeof c.user != "undefined" && c.user != null ){ %>
+            <a href="/user/profile/<%= c.user.id %>" ><%= c.user.local.email %></a>
+            <% } %>
+          </td>
+
+          <td>
+            <a href="/creates/show/<%= c.id %>">Show</a>
+          	-
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
           	-
           	<a href="/creates/edit/<%= c.id %>" >Edit</a> 
           </td>

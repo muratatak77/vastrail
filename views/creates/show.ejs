@@ -1,0 +1,84 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-12">
+            <% include ../partials/header %>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Creative Detail</h3>
+        </div>
+      </div>
+
+      <div class="row">
+      <div class="col-md-6">
+        <% include ../partials/message %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+      <% if (typeof create != "undefined" &&  create != "" ){ %>
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Advertisers</th>
+                <th>Link</th>
+                <th>Skip</th>
+                <th>Created</th>
+                <th>Process</th>
+              </tr>
+            </thead>
+              <tbody>
+                  <tr>
+                    <td><%= create.id %></td>
+                    <td><%= create.title %></td>
+                    <td><%= create.type %></td>
+                    <td><%= create.advertisers %></td>
+                    <td><%= create.video_clickthrough_url %></td>
+                    <td><%= create.skip %></td>
+                    <td><%= create.createdDate %></td>
+                    <td>
+                      <a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= create.id %>" rel="nofollow">Destroy</a>
+                      -
+                      <a href="/creates/edit/<%= create.id %>" >Edit</a> 
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+
+
+          <p><a href="/creates/">All Creates</a></p>
+
+      <% } %>
+
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <% include ../partials/footer %>
+        </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

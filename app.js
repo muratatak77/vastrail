@@ -6,6 +6,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session')
+var mongoStore = require('connect-mongo')(session);
+
 var bodyParser = require('body-parser');
 var flash = require('express-flash');
 var mongoose = require('mongoose');
@@ -15,7 +17,6 @@ var config = require('./config/config');
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
-
 
 var jsdom = require("jsdom"); 
 var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
@@ -33,14 +34,14 @@ var auth = require('./config/auth');
 var env = process.env.NODE_ENV || 'development';
 console.log("ENV : " , env);
 
+// var sessionStore = new session.MongoStore;
+
 // var configDB = require('./config/database.js');
 mongoose.connect(config.db); // connect to our database
 
 // var  db = mongoose.connect('mongodb://localhost:27017/vast');
 
-
 var app = express();
-var sessionStore = new session.MemoryStore;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -62,7 +63,11 @@ app.use(cookieParser('secret'));
 
 app.use(session({
     cookie: { maxAge: 6000000 },
-    store: sessionStore,
+    // store: sessionStore,
+     store: new mongoStore({
+      url: config.db,
+      collection : 'sessions'
+    }),
     saveUninitialized: true,
     resave: 'true',
     secret: 'vastrailldghns9705676455342g323ksldfjen8ow59iwr48579'

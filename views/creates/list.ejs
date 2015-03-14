@@ -1,0 +1,49 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Advertisers</th>
+      <th>Link</th>
+      <th>Skip</th>
+      <th>Created</th>
+      <th>User</th>
+      <th>Category</th>
+      <th>Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <% creates.forEach(function(c){ %>
+        <tr>
+          <td><%= c.id %></td>
+          <td><%= c.title %></td>
+          <td><%= c.type %></td>
+          <td><%= c.advertisers %></td>
+          <td><%= c.video_clickthrough_url %></td>
+          <td><%= c.skip %></td>
+          <td><%= c.createdDate %></td>
+          <td>
+            <% if (typeof c.user != "undefined" && c.user != null ){ %>
+            <a href="/user/profile/<%= c.user.id %>" ><%= c.user.local.email %></a>
+            <% } %>
+          </td>
+
+          <td>
+            <% if (typeof c.category != "undefined" && c.category != null ){ %>
+            <a href="/categories/show/<%= c.category.id %>" ><%= c.category.title %></a>
+            <% } %>
+          </td>
+
+          <td>
+            <a href="/creates/show/<%= c.id %>">Show</a>
+          	-
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
+          	-
+          	<a href="/creates/edit/<%= c.id %>" >Edit</a> 
+          </td>
+        </tr>
+
+     <% }); %>
+  </tbody>
+</table>

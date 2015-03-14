@@ -1,0 +1,139 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-12">
+            <% include ../partials/header %>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Creative Detail</h3>
+        </div>
+      </div>
+
+      <div class="row">
+      <div class="col-md-6">
+        <% include ../partials/message %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+      <% if (typeof create != "undefined" &&  create != "" ){ %>
+
+
+        <div class="col-sm-8 form-horizontal">
+
+           <div class="form-group">
+            <label  class="col-sm-2 control-label">Id</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.id %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label  class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.title %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.type %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Advertisers</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.advertisers %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Video Click URL</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.video_clickthrough_url %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Skip</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.skip %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Created</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.createdDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Updated</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.updatedDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">User</label>
+            <div class="col-sm-6">
+                <% if (typeof create.user != "undefined" && create.user != null ){ %>
+                  <a  class="form-control" href="/user/profile/<%= create.user.id %>" ><%= create.user.local.email %></a>
+                <% } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Process</label>
+            <div class="col-sm-6 ">
+                <div class="form-control">
+                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= create.id %>" rel="nofollow">Destroy</a>
+                  -
+                  <a href="/creates/edit/<%= create.id %>" >Edit</a> 
+                </div>
+            </div>
+          </div>
+          <hr>
+          <p><a href="/creates/">All Creates</a></p>
+
+        </div>
+
+      <% } %>
+
+
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <% include ../partials/footer %>
+        </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

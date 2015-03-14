@@ -33,41 +33,96 @@
 
       <% if (typeof create != "undefined" &&  create != "" ){ %>
 
-          <table class="table table-hover table-bordered">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Advertisers</th>
-                <th>Link</th>
-                <th>Skip</th>
-                <th>Created</th>
-                <th>Process</th>
-              </tr>
-            </thead>
-              <tbody>
-                  <tr>
-                    <td><%= create.id %></td>
-                    <td><%= create.title %></td>
-                    <td><%= create.type %></td>
-                    <td><%= create.advertisers %></td>
-                    <td><%= create.video_clickthrough_url %></td>
-                    <td><%= create.skip %></td>
-                    <td><%= create.createdDate %></td>
-                    <td>
-                      <a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= create.id %>" rel="nofollow">Destroy</a>
-                      -
-                      <a href="/creates/edit/<%= create.id %>" >Edit</a> 
-                    </td>
-                  </tr>
-              </tbody>
-          </table>
+
+        <div class="col-sm-8 form-horizontal">
+
+           <div class="form-group">
+            <label  class="col-sm-2 control-label">Id</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.id %></div>
+            </div>
+          </div>
 
 
+          <div class="form-group">
+            <label  class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.title %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.type %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Advertisers</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.advertisers %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Video Click URL</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.video_clickthrough_url %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Skip</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.skip %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Created</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.createdDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Updated</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= create.updatedDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">User</label>
+            <div class="col-sm-6">
+                <% if (typeof create.user != "undefined" && create.user != null ){ %>
+                  <a  class="form-control" href="/user/profile/<%= create.user.id %>" ><%= create.user.local.email %></a>
+                <% } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Process</label>
+            <div class="col-sm-6 ">
+                <div class="form-control">
+                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= create.id %>" rel="nofollow">Destroy</a>
+                  -
+                  <a href="/creates/edit/<%= create.id %>" >Edit</a> 
+                </div>
+            </div>
+          </div>
+          <hr>
           <p><a href="/creates/">All Creates</a></p>
 
+        </div>
+
       <% } %>
+
 
       </div>
     </div>

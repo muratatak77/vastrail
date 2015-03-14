@@ -21,6 +21,7 @@ var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var creates = require('./routes/creates');
+var categories = require('./routes/categories');
 
 require('./config/passport')(passport); 
 var auth = require('./config/auth');
@@ -45,7 +46,6 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -55,36 +55,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser('secret'));
 
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 6000000 },
     store: sessionStore,
     saveUninitialized: true,
     resave: 'true',
-    secret: 'secret'
+    secret: 'vastrailldghns9705676455342g323ksldfjen8ow59iwr48579'
 }));
+
 
 
 // app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
-
 app.use(flash());
-
 
 app.use(function(req, res, next){
 
     res.locals.user = req.session.user;
-
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.sessionFlash = req.session.sessionFlash;
     delete req.session.sessionFlash;
     next();
 });
 
-
 app.use('/', routes);
-app.use('/users', users);
-app.use('/creates', auth.requiresLogin ,  creates);
+app.use('/users', auth.requiresLogin, users);
+app.use('/creates', auth.requiresLogin, creates);
+app.use('/categories', auth.requiresLogin, categories);
 
 app.use("/style", express.static(__dirname + '/public/stylesheets/'));
 app.use("/images", express.static(__dirname + '/public/images/'));

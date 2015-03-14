@@ -5,10 +5,16 @@ var passport = require('passport')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
 	console.log("idnexxxxx");
 
-	res.render('index', { expressFlash: req.flash('	'), sessionFlash: res.locals.sessionFlash });
+	if ( req.isAuthenticated() ){
+		// return res.redirect('/index');
+		res.render('index', { expressFlash: req.flash('	'), sessionFlash: res.locals.sessionFlash });
+	}else {
+		return res.redirect('/login');
+	}
+
+	
   // res.render('index', { title: 'Express' });
 });
 
@@ -83,12 +89,9 @@ function loginPost(req, res, next) {
 	        	return next(err);
 	    	}
 	    	req.session.user = user;
-
-	    	console.log("req.session() : " , req.session );
-
+	    	// console.log("req.session() : " , req.session );
 	    	req.session.login = req.isAuthenticated();
-
-	    	console.log("req.session.login : " , req.session.login);
+	    	// console.log("req.session.login : " , req.session.login);
 
 			req.session.sessionFlash = { type: 'success', message: 'Login successfully!'}
 		    return res.redirect('/');

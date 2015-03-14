@@ -1,0 +1,109 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-12">
+            <% include ../partials/header %>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Category Detail</h3>
+        </div>
+      </div>
+
+      <div class="row">
+      <div class="col-md-6">
+        <% include ../partials/message %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+      <% if (typeof category != "undefined" &&  category != "" ){ %>
+
+
+        <div class="col-sm-8 form-horizontal">
+
+           <div class="form-group">
+            <label  class="col-sm-2 control-label">Id</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= category.id %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label  class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= category.title %></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= category.cat_name %></div>
+            </div>
+          </div>
+
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Created</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= category.createdDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Updated</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= category.updatedDate %></div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Process</label>
+            <div class="col-sm-6 ">
+                <div class="form-control">
+                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/categories/destroy/<%= category.id %>" rel="nofollow">Destroy</a>
+                  -
+                  <a href="/categories/edit/<%= category.id %>" >Edit</a> 
+                </div>
+            </div>
+          </div>
+          <hr>
+          <p><a href="/categories/">All Categories</a></p>
+
+        </div>
+
+      <% } %>
+
+
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <% include ../partials/footer %>
+        </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

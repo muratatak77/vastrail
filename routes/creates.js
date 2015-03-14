@@ -5,21 +5,33 @@ var router = express.Router();
 var utils = require('../lib/utils')
 var mongoose = require('mongoose');
 // jQuery = require('jquery');
+var traceback = require('traceback');
+
+var path = require('path');
+
+// var trace = stackTrace.get();
 
 var Create = require('../models/create.js');
+var Category = require('../models/category.js');
+
 var message_type =  "";
 var message =  "";
 var error = "";
 
+
 /* GET creates listing. */
 router.get('/', function(req, res, next) {
+
+	utils.calling(traceback());
 	render_index(req, res, "", "");
 });
 
 /* GET users listing. */
 router.get('/show/:id', function(req, res, next) {
 	
-	Create.findById(req.params.id, function(err, create){
+	utils.calling(traceback());
+	
+	Create.findById(req.params.id).populate('user').exec(function(err, create) { 
 		console.log("create : " , create);
 		if (err) {
 			return console.log("ERROR OCCURED : " , err);
@@ -29,41 +41,84 @@ router.get('/show/:id', function(req, res, next) {
 		});
 	});
 
+	// Create.findById(req.params.id, function(err, create){
+	// 	console.log("create : " , create);
+	// 	if (err) {
+	// 		return console.log("ERROR OCCURED : " , err);
+	// 	}
+	// 	res.render('creates/show', {
+	// 		create: create
+	// 	});
+	// });
+
 });
 
-/* GET users listing. */
+
 router.get('/new', function(req, res, next) {
 
-	req.flash('success', 'Successfully created create!');
+	utils.calling(traceback());
 
-	res.render('creates/new', {
-		create: Create,
-		form_action_page: "/creates/create",
-		form_method_type: "post"
-	});
+	// var categories = "";
+
+	// Category.find(function (err, cats) {
+ //      if (err){
+ //        console.log("ERROR OCCURED : " , err);
+ //        return res.render('500');
+
+ //      }else{
+ //        console.log("categories >>>>" , cats);
+
+ //        res.render('creates/new', {
+	// 		create: Create,
+	// 		form_action_page: "/creates/create",
+	// 		form_method_type: "post",
+	// 		categories: cats
+	// 	});
+ //      }
+ //    });
+	console.log("Category List 1 :" , Category.list(res));
+
+  	Category.list(res, function (err, categories) {
+	    if (err){
+			console.log("ERROR OCCURED : " , err);
+		    return res.render('500');
+		} else {
+			res.render('creates/new', {
+			create: Create,
+				form_action_page: "/creates/create",
+				form_method_type: "post",
+				categories: categories
+			});
+
+		}
+  	});
 	
 });
 
 /* POST create new */
 router.post('/create', function(req, res, next){
-
-	console.log("POST: ");
-	console.log(req.body);
+	utils.calling(traceback());	
+	console.log("POST : " , req.body);
+	console.log("@@@@@@@@@@@@@@@@@   req.body.category.id >>>>>>>>>>> " ,req.body.category );
 
 	var create = Create.new(req);
 	console.log("create >> " , create);
-	
-
 
  	create.save(function (err) {
     	if (err) {
-		  	console.log("ERROR OCCURED : " , err);
 
-			return res.render('creates/new', {
-				create: create,
-				form_action_page: "/creates/create",
-				form_method_type: "post",
-				errors: utils.errors(err)
+		  	console.log("ERROR OCCURED : " , err);
+		 	Category.list(res, function (err_cat, categories) {
+
+		 		if (err_cat) return res.render('500');
+
+				return res.render('creates/new', {
+					create: create,
+					form_action_page: "/creates/create",
+					form_method_type: "post",
+					errors: utils.errors(err),
+					categories: categories
+				});
 			});
 
     	} else {
@@ -81,6 +136,8 @@ router.post('/create', function(req, res, next){
 /* GET edit by id. */
 router.get('/edit/:id', function(req, res, next) {
 
+	utils.calling(traceback());
+
 	Create.findById(req.params.id, function(err, create){
 		if (err) {
 			return console.log("ERROR OCCURED : " , err);
@@ -97,6 +154,8 @@ router.get('/edit/:id', function(req, res, next) {
 
 
 router.post('/update/:id', function(req, res, next) {
+
+	utils.calling(traceback());
 
 	console.log("req.params : " ,  req.params);
 	console.log("UPDATE PARAMS : " , req.body);
@@ -167,6 +226,9 @@ router.post('/update/:id', function(req, res, next) {
 
 
 router.post('/destroy/:id', function (req, res){
+
+	utils.calling(traceback());
+
 	Create.findById(req.params.id, function (err, create) {
 	    create.remove(function (err) {
 	    	if (err) {
@@ -189,7 +251,12 @@ router.post('/destroy/:id', function (req, res){
 
 function render_index(req, res, msg_type, msg_val){
 
-	Create.find({}).populate('user').exec(function(err, creates) { 
+	utils.calling(traceback());
+
+	Create.find({})
+	.populate('user')
+	.populate('category')
+	.exec(function(err, creates) { 
 		// Your callback code where you can access subdomain directly through custPhone.subdomain.name 
 
 		if (err){
@@ -199,13 +266,6 @@ function render_index(req, res, msg_type, msg_val){
 		        message: 'Error Ocuured' + utils.errors(err)
 		    }
 	    }
-
-
-	    creates.forEach(function(a,b){
-	    	if (a.user != null){
-		    	console.log("a : " , a.user.local.email + " /  b  : " + b );
-	    	}
-	    });
 
 		res.render('creates/index', {
 			creates: creates,

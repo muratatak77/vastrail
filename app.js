@@ -11,6 +11,8 @@ var flash = require('express-flash');
 var mongoose = require('mongoose');
 var validate = require('mongoose-validator');
 
+var config = require('./config/config');
+
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -23,12 +25,16 @@ var users = require('./routes/users');
 var creates = require('./routes/creates');
 var categories = require('./routes/categories');
 
+
 require('./config/passport')(passport); 
 var auth = require('./config/auth');
 
 
-var configDB = require('./config/database.js');
-mongoose.connect(configDB.url); // connect to our database
+var env = process.env.NODE_ENV || 'development';
+console.log("ENV : " , env);
+
+// var configDB = require('./config/database.js');
+mongoose.connect(config.db); // connect to our database
 
 // var  db = mongoose.connect('mongodb://localhost:27017/vast');
 

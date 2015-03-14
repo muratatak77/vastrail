@@ -84,20 +84,20 @@ createSchema.path('category').validate(function (category) {
 }, 'Category can not be empty.');
 
 
-// createSchema.pre("save", function(next) {
-createSchema.pre('save', true, function (next, done) {
+// // createSchema.pre("save", function(next) {
+// createSchema.pre('save', true, function (next, done) {
 
-  console.log("this.category : " , this.category ); 
-  if (this.category == ""){
-    console.log("errorrrrrrrr");
-  }
-  console.log("next :" , next);
-  console.log("done :" , done);
+//   console.log("this.category : " , this.category ); 
+//   if (this.category == ""){
+//     console.log("errorrrrrrrr");
+//   }
+//   console.log("next :" , next);
+//   console.log("done :" , done);
 
-  // calling next kicks off the next middleware in parallel
-  next();
+//   // calling next kicks off the next middleware in parallel
+//   next();
 
-});
+// });
 
 
 

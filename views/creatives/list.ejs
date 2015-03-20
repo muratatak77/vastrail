@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-  	  <% creates.forEach(function(c){ %>
+  	  <% creatives.forEach(function(c){ %>
         <tr>
           <td><%= c.id %></td>
           <td><%= c.title %></td>
@@ -36,11 +36,11 @@
           </td>
 
           <td>
-            <a href="/creates/show/<%= c.id %>">Show</a>
+            <a href="/creatives/show/<%= c.id %>">Show</a>
           	-
-			       <a data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/creatives/destroy/<%= c.id %>" rel="nofollow">Destroy</a>
           	-
-          	<a href="/creates/edit/<%= c.id %>" >Edit</a> 
+          	<a href="/creatives/edit/<%= c.id %>" >Edit</a> 
           </td>
         </tr>
 

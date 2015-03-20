@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-md-12">
 
-      <% if (typeof create != "undefined" &&  create != "" ){ %>
+      <% if (typeof creative != "undefined" &&  creative != "" ){ %>
 
 
         <div class="col-sm-8 form-horizontal">
@@ -39,7 +39,7 @@
            <div class="form-group">
             <label  class="col-sm-2 control-label">Id</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.id %></div>
+              <div class="form-control"><%= creative.id %></div>
             </div>
           </div>
 
@@ -47,28 +47,28 @@
           <div class="form-group">
             <label  class="col-sm-2 control-label">Title</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.title %></div>
+              <div class="form-control"><%= creative.title %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Type</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.type %></div>
+              <div class="form-control"><%= creative.type %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Advertisers</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.advertisers %></div>
+              <div class="form-control"><%= creative.advertisers %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Video Click URL</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.video_clickthrough_url %></div>
+              <div class="form-control"><%= creative.video_clickthrough_url %></div>
             </div>
           </div>
 
@@ -76,7 +76,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Skip</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.skip %></div>
+              <div class="form-control"><%= creative.skip %></div>
             </div>
           </div>
 
@@ -84,7 +84,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Created</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.createdDate %></div>
+              <div class="form-control"><%= creative.createdDate %></div>
             </div>
           </div>
 
@@ -92,7 +92,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Updated</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= create.updatedDate %></div>
+              <div class="form-control"><%= creative.updatedDate %></div>
             </div>
           </div>
 
@@ -100,8 +100,8 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">User</label>
             <div class="col-sm-6">
-                <% if (typeof create.user != "undefined" && create.user != null ){ %>
-                  <a  class="form-control" href="/user/profile/<%= create.user.id %>" ><%= create.user.local.email %></a>
+                <% if (typeof creative.user != "undefined" && creative.user != null ){ %>
+                  <a  class="form-control" href="/user/profile/<%= creative.user.id %>" ><%= creative.user.local.email %></a>
                 <% } %>
             </div>
           </div>
@@ -110,14 +110,14 @@
             <label class="col-sm-2 control-label">Process</label>
             <div class="col-sm-6 ">
                 <div class="form-control">
-                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/creates/destroy/<%= create.id %>" rel="nofollow">Destroy</a>
+                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/creatives/destroy/<%= creative.id %>" rel="nofollow">Destroy</a>
                   -
-                  <a href="/creates/edit/<%= create.id %>" >Edit</a> 
+                  <a href="/creatives/edit/<%= creative.id %>" >Edit</a> 
                 </div>
             </div>
           </div>
           <hr>
-          <p><a href="/creates/">All Creates</a></p>
+          <p><a href="/creatives/">All Creates</a></p>
 
         </div>
 

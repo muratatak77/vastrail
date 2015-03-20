@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
-var validate = require('mongoose-validator');
+var extend = require('mongoose-schema-extend');
+
+var validateMongo = require('mongoose-validator');
+
 
 var lengthValidator = [
-  validate({
+  validateMongo({
     validator: 'isLength',
     arguments: [3, 50],
     message: 'Should be between 3 and 50 characters'
@@ -10,7 +13,7 @@ var lengthValidator = [
 ];
 
 var skipValidator = [
-  validate({
+  validateMongo({
    validator: 'matches',
    arguments: '^[0-9]*$',
    message: 'Skip must be number'
@@ -18,7 +21,7 @@ var skipValidator = [
 ];
 
 var catValidator = [
-  validate({
+  validateMongo({
     validator: function(val) {
       console.log("@@@@@ val >>>> " , val );
       return val != "0";
@@ -28,7 +31,7 @@ var catValidator = [
 ];
 
 var urlValidator = [
-  validate({
+  validateMongo({
    validator: 'matches',
    arguments: '^[a-zA-Z0-9\-\.]+\.(com|org|net|mil|edu|COM|ORG|NET|MIL|EDU)$',
    message: 'Skip must be url format'
@@ -37,23 +40,23 @@ var urlValidator = [
 
 var createSchema = new mongoose.Schema({
   title: {type: String, required: true, validate: lengthValidator},
-  // type: { type: String, required: true, default: '' , validate: lengthValidator},
   advertisers: { type: String, default: '' },
   video_clickthrough_url: { type: String, required: true, default: '', validate: urlValidator },
   skip: { type: Number, required: true, validate: skipValidator },
   createdDate: { type: Date },
   updatedDate: { type: Date },
   user: { type : mongoose.Schema.ObjectId, ref : 'User' },
-  category: { type : mongoose.Schema.ObjectId, ref : 'Category' ,  required: true}
+  category: { type : mongoose.Schema.ObjectId, ref : 'Category'},
 });
 
 createSchema.statics = {
 
 	new: function (req){
-    console.log("Calling model : create /  method = new ");
-    var module = mongoose.model('Create', createSchema);
+    console.log("Calling model : creative /  method = new ");
+    var module = mongoose.model('Creative', createSchema);
     return new module({
       title: req.body.title,
+      desc: req.body.desc,
       // type: req.body.type,
       advertisers: req.body.advertisers,
       video_clickthrough_url: req.body.video_clickthrough_url,
@@ -65,15 +68,15 @@ createSchema.statics = {
     });
 	},
 
-  load: function (create , req) {
-  		console.log("Calling model : create /  method = load ");
-  		create.title =  req.body.title;
-  		// create.type =  req.body.type;
-  		create.advertisers = req.body.advertisers;
-  		create.video_clickthrough_url =  req.body.video_clickthrough_url;
-  		create.skip =  req.body.skip;
-      create.updatedDate = new Date;
-		  return create;
+  load: function (creative , req) {
+  		console.log("Calling model : creative /  method = load ");
+  		creative.title =  req.body.title;
+  		// creative.type =  req.body.type;
+  		creative.advertisers = req.body.advertisers;
+  		creative.video_clickthrough_url =  req.body.video_clickthrough_url;
+  		creative.skip =  req.body.skip;
+      creative.updatedDate = new Date;
+		  return creative;
 	 },
 
 }
@@ -101,7 +104,7 @@ createSchema.path('category').validate(function (category) {
 
 
 
-module.exports = mongoose.model('Create', createSchema);
+module.exports = mongoose.model('Creative', createSchema);
 
 
 

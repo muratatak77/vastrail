@@ -23,7 +23,7 @@ var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var creates = require('./routes/creates');
+var creatives = require('./routes/creatives');
 var categories = require('./routes/categories');
 
 
@@ -91,7 +91,7 @@ app.use(function(req, res, next){
 
 app.use('/', routes);
 app.use('/users', auth.requiresLogin, users);
-app.use('/creates', auth.requiresLogin, creates);
+app.use('/creatives', auth.requiresLogin, creatives);
 app.use('/categories', auth.requiresLogin, categories);
 
 app.use("/style", express.static(__dirname + '/public/stylesheets/'));

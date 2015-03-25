@@ -3,10 +3,8 @@
     <tr>
       <th>No</th>
       <th>Title</th>
-      <th>Type</th>
-      <th>Advertisers</th>
-      <th>Link</th>
-      <th>Skip</th>
+      <th>Video Url</th>
+      <th>Clickthrough Url</th>
       <th>Created</th>
       <th>User</th>
       <th>Category</th>
@@ -18,10 +16,8 @@
         <tr>
           <td><%= c.id %></td>
           <td><%= c.title %></td>
-          <td><%= c.type %></td>
-          <td><%= c.advertisers %></td>
-          <td><%= c.video_clickthrough_url %></td>
-          <td><%= c.skip %></td>
+          <td><%= c.video_url %></td>
+          <td><%= c.clickthrough_url %></td>
           <td><%= c.createdDate %></td>
           <td>
             <% if (typeof c.user != "undefined" && c.user != null ){ %>

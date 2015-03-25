@@ -9,7 +9,7 @@
 <body>
 
 	<div class="container-fluid">
-		
+
 	    <div class="row">
 	    	<div class="col-md-12">
 	       		<% include ../partials/header %>
@@ -17,19 +17,8 @@
 	    </div>
 
 	    <div class="row">
-
-	    	<div class="col-md-12">
-	    		<blockquote>
-				  <p>Bu bolum olusturulan reklam siparislerinin icerdikleri videolari olusturur. </p>
-				</blockquote>
-	    	</div>
-
 	    	<div class="col-md-6">
-	    		<h3>Creative List</h3>
-	    	</div>
-
-	    	<div class="col-md-6 text-right">
-	    		<h4><a href="/creatives/new">New Creative</a></h4>
+	    		<h3>Edit Video Format by <%= video_format.id %></h3>
 	    	</div>
 	    </div>
 
@@ -40,8 +29,9 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-12">
-			    <% include list %>
+			<P></P>
+			<div class="col-md-6">
+				<% include form %>
 			</div>
 		</div>
 

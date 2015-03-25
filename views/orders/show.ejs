@@ -52,29 +52,34 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Desc</label>
+            <label class="col-sm-2 control-label">Type</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.desc %></div>
+              <div class="form-control"><%= creative.type %></div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Category</label>
+            <label class="col-sm-2 control-label">Advertisers</label>
             <div class="col-sm-6">
-              <div class="form-control">
-                  <% if (typeof creative.category != "undefined" && creative.category != null ){ %>
-                    <%= creative.category.title %></a>
-                  <% } %>
-              </div>
-              </div>
+              <div class="form-control"><%= creative.advertisers %></div>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Video Click URL</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.clickthrough_url %></div>
+              <div class="form-control"><%= creative.video_clickthrough_url %></div>
             </div>
           </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Skip</label>
+            <div class="col-sm-6">
+              <div class="form-control"><%= creative.skip %></div>
+            </div>
+          </div>
+
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Created</label>
@@ -82,6 +87,7 @@
               <div class="form-control"><%= creative.createdDate %></div>
             </div>
           </div>
+
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Updated</label>

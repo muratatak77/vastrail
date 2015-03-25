@@ -1,0 +1,31 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Code</th>
+      <th>Desc</th>
+      <th>Created</th>
+      <th>Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <% ad_spaces.forEach(function(ads){ %>
+        <tr>
+          <td><%= ads.id %></td>
+          <td><%= ads.title %></td>
+          <td><%= ads.code %></td>
+          <td><%= ads.desc %></td>
+          <td><%= ads.createdDate %></td>
+          <td>
+            <a href="/ad_spaces/show/<%= ads.id %>">Show</a>
+          	-
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/ad_spaces/destroy/<%= ads.id %>" rel="nofollow">Destroy</a>
+          	-
+          	<a href="/ad_spaces/edit/<%= ads.id %>" >Edit</a> 
+          </td>
+        </tr>
+
+     <% }); %>
+  </tbody>
+</table>

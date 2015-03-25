@@ -19,7 +19,10 @@ var userSchema = new mongoose.Schema({
 	last_name: { type: String, default: '' },
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now },
-  creatives: { type: mongoose.Schema.ObjectId, ref: 'Creative' }
+
+  creatives: { type: mongoose.Schema.ObjectId, ref: 'Creative' }, 
+  orders: { type: mongoose.Schema.ObjectId, ref: 'Order' }
+
 });
 
 userSchema.methods.generateHash = function(password) {

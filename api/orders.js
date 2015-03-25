@@ -11,15 +11,15 @@ var path = require('path');
 
 // var trace = stackTrace.get();
 
-var Creative = require('../models/creative.js');
-var Category = require('../models/category.js');
+var Order = require('../models/order.js');
+// var Category = require('../models/category.js');
 
 var message_type =  "";
 var message =  "";
 var error = "";
 
 
-/* GET creatives listing. */
+/* GET orders listing. */
 router.get('/', function(req, res, next) {
 	utils.calling(traceback());
 	render_index(req, res, "", "");
@@ -30,23 +30,23 @@ router.get('/show/:id', function(req, res, next) {
 	
 	utils.calling(traceback());
 	
-	Creative.findById(req.params.id).populate('user').exec(function(err, creative) { 
-		console.log("creative : " , creative);
+	Order.findById(req.params.id).populate('user').exec(function(err, order) { 
+		console.log("order : " , order);
 		if (err) {
 			return console.log("ERROR OCCURED : " , err);
 		}
-		res.render('creatives/show', {
-			creative: creative
+		res.render('orders/show', {
+			order: order
 		});
 	});
 
-	// Creative.findById(req.params.id, function(err, creative){
-	// 	console.log("creative : " , creative);
+	// Order.findById(req.params.id, function(err, order){
+	// 	console.log("order : " , order);
 	// 	if (err) {
 	// 		return console.log("ERROR OCCURED : " , err);
 	// 	}
-	// 	res.render('creatives/show', {
-	// 		creative: creative
+	// 	res.render('orders/show', {
+	// 		order: order
 	// 	});
 	// });
 
@@ -67,9 +67,9 @@ router.get('/new', function(req, res, next) {
  //      }else{
  //        console.log("categories >>>>" , cats);
 
- //        res.render('creatives/new', {
-	// 		creative: Creative,
-	// 		form_action_page: "/creatives/creative",
+ //        res.render('orders/new', {
+	// 		order: Order,
+	// 		form_action_page: "/orders/order",
 	// 		form_method_type: "post",
 	// 		categories: cats
 	// 	});
@@ -82,9 +82,9 @@ router.get('/new', function(req, res, next) {
 			console.log("ERROR OCCURED : " , err);
 		    return res.render('500');
 		} else {
-			res.render('creatives/new', {
-			creative: Creative,
-				form_action_page: "/creatives/creative",
+			res.render('orders/new', {
+			order: Order,
+				form_action_page: "/orders/order",
 				form_method_type: "post",
 				categories: categories
 			});
@@ -94,16 +94,16 @@ router.get('/new', function(req, res, next) {
 	
 });
 
-/* POST creative new */
-router.post('/creative', function(req, res, next){
+/* POST order new */
+router.post('/order', function(req, res, next){
 	utils.calling(traceback());	
 	console.log("POST : " , req.body);
 	console.log("@@@@@@@@@@@@@@@@@   req.body.category.id >>>>>>>>>>> " ,req.body.category );
 
-	var creative = Creative.new(req);
-	console.log("creative >> " , creative);
+	var order = Order.new(req);
+	console.log("order >> " , order);
 
- 	creative.save(function (err) {
+ 	order.save(function (err) {
     	if (err) {
 
 		  	console.log("ERROR OCCURED : " , err);
@@ -111,9 +111,9 @@ router.post('/creative', function(req, res, next){
 
 		 		if (err_cat) return res.render('500');
 
-				return res.render('creatives/new', {
-					creative: creative,
-					form_action_page: "/creatives/creative",
+				return res.render('orders/new', {
+					order: order,
+					form_action_page: "/orders/order",
 					form_method_type: "post",
 					errors: utils.errors(err),
 					categories: categories
@@ -123,9 +123,9 @@ router.post('/creative', function(req, res, next){
     	} else {
 			req.session.sessionFlash = {
 		        type: 'success',
-		        message: 'Successfully created creative!  / ID = ' + creative.id  + " / Title : " + creative.title
+		        message: 'Successfully created order!  / ID = ' + order.id  + " / Title : " + order.title
 		    }
-			res.redirect('/creatives/show/'+creative.id);
+			res.redirect('/orders/show/'+order.id);
     	}
   	});
 
@@ -137,13 +137,13 @@ router.get('/edit/:id', function(req, res, next) {
 
 	utils.calling(traceback());
 
-	Creative.findById(req.params.id, function(err, creative){
+	Order.findById(req.params.id, function(err, order){
 		if (err) {
 			return console.log("ERROR OCCURED : " , err);
 		}
-		res.render('creatives/edit', {
-			creative: creative,
-			form_action_page: "/creatives/update/"+creative.id,
+		res.render('orders/edit', {
+			order: order,
+			form_action_page: "/orders/update/"+order.id,
 			form_method_type: "post"
 		});
 	});
@@ -159,29 +159,29 @@ router.post('/update/:id', function(req, res, next) {
 	console.log("req.params : " ,  req.params);
 	console.log("UPDATE PARAMS : " , req.body);
 
-	Creative.findById(req.params.id, function (err, creative) {
+	Order.findById(req.params.id, function (err, order) {
  	
  		if (err) return next(err);
 
- 		creative = Creative.load(creative, req);
+ 		order = Order.load(order, req);
 
-	    creative.save(function (err) {
+	    order.save(function (err) {
 
 	    	if (!err) {
 				req.session.sessionFlash = {
 			        type: 'success',
-			        message: 'Successfully Update creative!  / ID = ' + creative.id  + " / Title : " + creative.title
+			        message: 'Successfully Update order!  / ID = ' + order.id  + " / Title : " + order.title
 			    }
-				console.log("Update Successfully :" , creative);
-		    	return res.redirect('/creatives/show/'+creative.id);
+				console.log("Update Successfully :" , order);
+		    	return res.redirect('/orders/show/'+order.id);
 			}
 
 
 	    	if (err) {
 	    		console.log("ERROR OCCURED  2: " , err);
-				res.render('creatives/edit', {
-					creative: creative,
-					form_action_page: "/creatives/update/"+creative.id,
+				res.render('orders/edit', {
+					order: order,
+					form_action_page: "/orders/update/"+order.id,
 					form_method_type: "post",
 					errors: utils.errors(err)
 				});
@@ -191,28 +191,28 @@ router.post('/update/:id', function(req, res, next) {
 	});
 
 
-	// Creative.findByIdAndUpdate(req.params.id, req.body, function (err, creative) {
+	// Order.findByIdAndUpdate(req.params.id, req.body, function (err, order) {
 
 	//     if (err) return next(err);
-	// 	if (!creative){
-	// 		console.log("ERROR OCCURED 1 : " , 'creative is null' );
+	// 	if (!order){
+	// 		console.log("ERROR OCCURED 1 : " , 'order is null' );
 	// 		return next(err);
 	// 	}
 
 	// 	if (!err) {
 	// 		req.session.sessionFlash = {
 	// 	        type: 'success',
-	// 	        message: 'Successfully Update creative!  / ID = ' + creative.id  + " / Title : " + creative.title
+	// 	        message: 'Successfully Update order!  / ID = ' + order.id  + " / Title : " + order.title
 	// 	    }
-	// 		console.log("Update Successfully :" , creative);
-	//     	return res.redirect('/creatives/show/'+creative.id);
+	// 		console.log("Update Successfully :" , order);
+	//     	return res.redirect('/orders/show/'+order.id);
 	// 	}
 
 	// 	console.log("ERROR OCCURED  : " , err);
 
-	// 	return res.render('creatives/edit', {
-	// 		creative: creative,
-	// 		form_action_page: "/creatives/update/"+creative.id,
+	// 	return res.render('orders/edit', {
+	// 		order: order,
+	// 		form_action_page: "/orders/update/"+order.id,
 	// 		form_method_type: "post",
 	// 		errors: utils.errors(err)
 	// 	});
@@ -228,21 +228,21 @@ router.post('/destroy/:id', function (req, res){
 
 	utils.calling(traceback());
 
-	Creative.findById(req.params.id, function (err, creative) {
-	    creative.remove(function (err) {
+	Order.findById(req.params.id, function (err, order) {
+	    order.remove(function (err) {
 	    	if (err) {
 	    		console.log("ERROR OCCURED  2: " , err);
-				res.render('creatives/edit', {
-					creative: creative,
+				res.render('orders/edit', {
+					order: order,
 					form_method_type: "post",
 					errors: utils.errors(err)
 				});
 			}
 			req.session.sessionFlash = {
 		        type: 'success',
-		        message: 'Successfully destroy creative! /  ID = ' + req.params.id  + " / Title : " + creative.title
+		        message: 'Successfully destroy order! /  ID = ' + req.params.id  + " / Title : " + order.title
 		    }
-			res.redirect('/creatives');
+			res.redirect('/orders');
     	});
 	});
 });
@@ -252,10 +252,10 @@ function render_index(req, res, msg_type, msg_val){
 
 	utils.calling(traceback());
 
-	Creative.find({})
-	.populate('user')
-	.populate('category')
-	.exec(function(err, creatives) { 
+	Order.find({})
+	// .populate('user')
+	// .populate('category')
+	.exec(function(err, orders) { 
 		// Your callback code where you can access subdomain directly through custPhone.subdomain.name 
 
 		if (err){
@@ -266,8 +266,8 @@ function render_index(req, res, msg_type, msg_val){
 		    }
 	    }
 
-		res.render('creatives/index', {
-			creatives: creatives,
+		res.render('orders/index', {
+			orders: orders,
 			message_type: msg_type,
 			message: message
 		});
@@ -275,7 +275,7 @@ function render_index(req, res, msg_type, msg_val){
 	})
 
 
-	// Creative.find(function (err, creatives) {
+	// Order.find(function (err, orders) {
 	// 	console.log("calling index.");
 	// 	var message = "";
 	//     if (err){
@@ -285,8 +285,8 @@ function render_index(req, res, msg_type, msg_val){
 	// 		message = msg_val;
 	//     }
 
-	// 	res.render('creatives/index', {
-	// 		creatives: creatives,
+	// 	res.render('orders/index', {
+	// 		orders: orders,
 	// 		message_type: msg_type,
 	// 		message: message
 	// 	});

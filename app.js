@@ -21,10 +21,18 @@ var LocalStrategy = require('passport-local').Strategy;
 var jsdom = require("jsdom"); 
 var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var creatives = require('./routes/creatives');
-var categories = require('./routes/categories');
+var controllers = require('./controllers/index');
+var users = require('./controllers/users');
+var creatives = require('./controllers/creatives');
+var creative_categories = require('./controllers/creative_categories');
+var orders = require('./controllers/orders');
+var advertisers = require('./controllers/advertisers');
+var ad_spaces = require('./controllers/ad_spaces');
+var video_formats = require('./controllers/video_formats');
+
+
+// api
+var api_creatives = require('./api/creatives');
 
 
 require('./config/passport')(passport); 
@@ -73,8 +81,6 @@ app.use(session({
     secret: 'vastrailldghns9705676455342g323ksldfjen8ow59iwr48579'
 }));
 
-
-
 // app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -89,15 +95,23 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use('/', routes);
+//web controller
+app.use('/', controllers);
 app.use('/users', auth.requiresLogin, users);
 app.use('/creatives', auth.requiresLogin, creatives);
-app.use('/categories', auth.requiresLogin, categories);
+app.use('/creative_categories', auth.requiresLogin, creative_categories);
+app.use('/orders', auth.requiresLogin, orders);
+app.use('/advertisers', auth.requiresLogin, advertisers);
+app.use('/ad_spaces', auth.requiresLogin, ad_spaces);
+app.use('/video_formats', auth.requiresLogin, video_formats);
 
-app.use("/style", express.static(__dirname + '/public/stylesheets/'));
+
+//api
+app.use('/api/creatives', api_creatives);
+
+app.use("/css", express.static(__dirname + '/public/stylesheets/'));
 app.use("/images", express.static(__dirname + '/public/images/'));
 app.use("/js", express.static(__dirname + '/public/javascripts/'));
-
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

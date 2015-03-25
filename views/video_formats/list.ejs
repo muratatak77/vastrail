@@ -1,0 +1,31 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Code</th>
+      <th>Desc</th>
+      <th>Created</th>
+      <th>Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <% video_formats.forEach(function(vf){ %>
+        <tr>
+          <td><%= vf.id %></td>
+          <td><%= vf.title %></td>
+          <td><%= vf.code %></td>
+          <td><%= vf.desc %></td>
+          <td><%= vf.createdDate %></td>
+          <td>
+            <a href="/video_formats/show/<%= vf.id %>">Show</a>
+          	-
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/video_formats/destroy/<%= vf.id %>" rel="nofollow">Destroy</a>
+          	-
+          	<a href="/video_formats/edit/<%= vf.id %>" >Edit</a> 
+          </td>
+        </tr>
+
+     <% }); %>
+  </tbody>
+</table>

@@ -1,0 +1,49 @@
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Advertisers</th>
+      <th>Link</th>
+      <th>Skip</th>
+      <th>Created</th>
+      <th>User</th>
+      <th>Category</th>
+      <th>Process</th>
+    </tr>
+  </thead>
+  <tbody>
+  	  <% orders.forEach(function(o){ %>
+        <tr>
+          <td><%= o.id %></td>
+          <td><%= o.title %></td>
+          <td><%= o.type %></td>
+          <td><%= o.advertisers %></td>
+          <td><%= o.video_clickthrough_url %></td>
+          <td><%= o.skip %></td>
+          <td><%= o.createdDate %></td>
+          <td>
+            <% if (typeof o.user != "undefined" && o.user != null ){ %>
+            <a href="/user/profile/<%= o.user.id %>" ><%= o.user.local.email %></a>
+            <% } %>
+          </td>
+
+          <td>
+            <% if (typeof o.creative_category != "undefined" && o.creative_category != null ){ %>
+            <a href="/categories/show/<%= o.creative_category.id %>" ><%= o.creative_category.title %></a>
+            <% } %>
+          </td>
+
+          <td>
+            <a href="/orders/show/<%= o.id %>">Show</a>
+          	-
+			       <a data-confirm="Are you sure?" data-method="DELETE" href="/orders/destroy/<%= o.id %>" rel="nofollow">Destroy</a>
+          	-
+          	<a href="/orders/edit/<%= o.id %>" >Edit</a> 
+          </td>
+        </tr>
+
+     <% }); %>
+  </tbody>
+</table>

@@ -1,0 +1,123 @@
+	<form class="form-horizontal" action="<%= form_action_page %>" method="<%= form_method_type %>">
+		
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">Title</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" value="<%= order.title %>" name="title" id="title" placeholder="Title">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">Desc</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" value="<%= order.desc %>" name="desc" id="desc" placeholder="Desc">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">Ad-Pod Order</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" value="<%= order.pod_order %>" name="pod_order" id="pod_order" placeholder="Ad-Pod Order">
+	    </div>
+	  </div>
+
+	  <!-- Site -->
+
+	 <div class="form-group">
+	    <label class="col-sm-2 control-label">Company</label>
+	    <div class="col-sm-10">
+
+	    	<% if (typeof companies != "undefined" &&  companies != "" ){ %>
+				<select  class="form-control" name="company" id="company">
+					<option value="">Lutfen Seciniz !</option>
+					 <% companies.forEach(function(cmp){ %>
+						<option value="<%= cmp.id %>"><%= cmp.title %></option>
+					<% }); %>
+				</select>
+		   	<% } %>
+
+	    </div>
+	 </div>
+
+
+	<div class="form-group">
+	    <label class="col-sm-2 control-label">Order Status</label>
+	    <div class="col-sm-10">
+
+	    	<% if (typeof order_statues != "undefined" &&  order_statues != "" ){ %>
+				<select class="form-control" name="order_status" id="order_status">
+					<option value="">Lutfen Seciniz !</option>
+					 <% order_statues.forEach(function(os){ %>
+						<option value="<%= os.id %>"><%= os.title %></option>
+					<% }); %>
+				</select>
+		   	<% } %>
+
+	    </div>
+	</div>
+
+	  <!-- Orders Category -->
+
+	<div class="form-group">
+	    <label class="col-sm-2 control-label">Orders Category</label>
+	    <div class="col-sm-10">
+
+	    	<% if (typeof categories != "undefined" &&  categories != "" ){ %>
+				<select  class="form-control" name="order_category" id="order_category">
+					<option value="">Lutfen Seciniz !</option>
+					 <% categories.forEach(function(cat){ %>
+						<option value="<%= cat.id %>"><%= cat.title %></option>
+					<% }); %>
+				</select>
+		   	<% } %>
+
+	    </div>
+	</div>
+
+
+
+ 	<div class="form-group">
+	    <label class="col-sm-2 control-label">Content Tag</label>
+	    <div class="col-sm-10">
+
+	    	<% if (typeof content_tags != "undefined" &&  content_tags != "" ){ %>
+				<select  class="form-control" name="content_tag" id="content_tag">
+					<option value="">Lutfen Seciniz !</option>
+					 <% content_tags.forEach(function(ctag){ %>
+						<option value="<%= ctag.id %>"><%= ctag.title %></option>
+					<% }); %>
+				</select>
+		   	<% } %>
+
+	    </div>
+	 </div>
+
+
+ 	<div class="form-group">
+	    <label class="col-sm-2 control-label">Creatives</label>
+	    <div class="col-sm-10">
+
+	    	<% if (typeof creatives != "undefined" &&  creatives != "" ){ %>
+				<select  class="form-control" name="creative" id="creative">
+					<option value="">Lutfen Seciniz !</option>
+					 <% creatives.forEach(function(creat){ %>
+						<option value="<%= creat.id %>"><%= creat.title %></option>
+					<% }); %>
+				</select>
+		   	<% } %>
+
+	    </div>
+	 </div>
+
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-default ">Submit</button>
+	      <button type="reset" class="btn btn-default ">Reset</button>
+	      <div id="cancel_btn" class="btn btn-default">Cancel</div>
+	    </div>
+	  </div>
+
+
+	</form>
+

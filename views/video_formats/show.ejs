@@ -18,7 +18,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <h3>Creative Detail</h3>
+          <h3>Video Formats Detail</h3>
         </div>
       </div>
 
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-md-12">
 
-      <% if (typeof creative != "undefined" &&  creative != "" ){ %>
+      <% if (typeof video_format != "undefined" &&  video_format != "" ){ %>
 
 
         <div class="col-sm-8 form-horizontal">
@@ -39,7 +39,7 @@
            <div class="form-group">
             <label  class="col-sm-2 control-label">Id</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.id %></div>
+              <div class="form-control"><%= video_format.id %></div>
             </div>
           </div>
 
@@ -47,56 +47,35 @@
           <div class="form-group">
             <label  class="col-sm-2 control-label">Title</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.title %></div>
+              <div class="form-control"><%= video_format.title %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Desc</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.desc %></div>
+              <div class="form-control"><%= video_format.desc %></div>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Category</label>
+            <label class="col-sm-2 control-label">Code</label>
             <div class="col-sm-6">
-              <div class="form-control">
-                  <% if (typeof creative.category != "undefined" && creative.category != null ){ %>
-                    <%= creative.category.title %></a>
-                  <% } %>
-              </div>
-              </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Video Click URL</label>
-            <div class="col-sm-6">
-              <div class="form-control"><%= creative.clickthrough_url %></div>
+              <div class="form-control"><%= video_format.code %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Created</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.createdDate %></div>
+              <div class="form-control"><%= video_format.createdDate %></div>
             </div>
           </div>
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Updated</label>
             <div class="col-sm-6">
-              <div class="form-control"><%= creative.updatedDate %></div>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">User</label>
-            <div class="col-sm-6">
-                <% if (typeof creative.user != "undefined" && creative.user != null ){ %>
-                  <a  class="form-control" href="/user/profile/<%= creative.user.id %>" ><%= creative.user.local.email %></a>
-                <% } %>
+              <div class="form-control"><%= video_format.updatedDate %></div>
             </div>
           </div>
 
@@ -104,14 +83,14 @@
             <label class="col-sm-2 control-label">Process</label>
             <div class="col-sm-6 ">
                 <div class="form-control">
-                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/creatives/destroy/<%= creative.id %>" rel="nofollow">Destroy</a>
+                  <a  data-confirm="Are you sure?" data-method="DELETE" href="/video_formats/destroy/<%= video_format.id %>" rel="nofollow">Destroy</a>
                   -
-                  <a href="/creatives/edit/<%= creative.id %>" >Edit</a> 
+                  <a href="/video_formats/edit/<%= video_format.id %>" >Edit</a> 
                 </div>
             </div>
           </div>
           <hr>
-          <p><a href="/creatives/">All Creates</a></p>
+          <p><a href="/video_formats/">All Video Formats</a></p>
 
         </div>
 

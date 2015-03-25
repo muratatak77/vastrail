@@ -1,0 +1,33 @@
+	<form class="form-horizontal" action="<%= form_action_page %>" method="<%= form_method_type %>">
+
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">* Title</label>
+	    <div class="col-sm-10">
+	    	<input type="text" class="form-control" value="<%= ad_space.title %>" name="title" id="title" placeholder="Title">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">Desc</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" value="<%= ad_space.desc %>" name="desc" id="desc" placeholder="Desc">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label  class="col-sm-2 control-label">* Code</label>
+	    <div class="col-sm-10">
+	     	<input type="text" class="form-control" value="<%= ad_space.code %>" name="code" id="code" placeholder="Code">
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-default ">Submit</button>
+	      <button type="reset" class="btn btn-default ">Reset</button>
+	    </div>
+	  </div>
+
+	</form>
+
+
